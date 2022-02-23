@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book{% endblock %}
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">My Books History</h1>
+
+    </div>
+    {% if messages %}
+                    {% for message in messages %}
+                        <div{% if message.tags == 'error' %} class="alert alert-danger" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+                    {% endfor %}
+            {% endif %}
+    <div class="row">
+
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>SN</th>
+                            <th>User</th>
+                            <th>Title</th>
+                            <th>Requested Date</th>
+                            <th>Is Request Cancelled</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ book.user }}</td>
+                                <td>{{ book.books.title }}</td>
+                                <td>{{ book.req_date }}</td>
+                                <td>{{ book.is_req_cancelled }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

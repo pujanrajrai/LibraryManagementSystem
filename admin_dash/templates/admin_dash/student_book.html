@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Lend Book{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="d-sm-flex  mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Lend Book</h1>
+    </div>
+
+    <div class="row mb-3 ">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-5 col-md-6 mb-4">
+            <h4>User Details</h4>
+
+                Photo:<br>
+                <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+                Name: {{ profile.full_name }}<br>
+                Email: {{ profile.user.email }}<br>
+                Name : {{ profile.full_name }}<br>
+                Address : {{ profile.address }}<br>
+                Date of birth : {{ profile.dob }}<br>
+                Date of birth : {{ profile.gender }}<br>
+                RFID : {{ profile.rf_id }}<br>
+
+            {% if errors %}
+                <ul class="errorlist">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="col-xl-5 col-md-6 mb-4">
+            <h4>Book Details</h4>
+                Title: {{ book.book.title }}<br>
+                Author: {{ book.book.author }}<br>
+                Category: {{ book.book.category }}<br>
+                ISBN: {{ book.isbn }}<br><br><br><br><br>
+            <div>
+                <form method="post" action="{% url 'admin_dash:lend_book' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="isbn" value="{{ book.isbn }}">
+                    <input type="hidden" name="user" value="{{ profile.user.email }}">
+                    <input type="submit" class="btn btn-info" VALUE="Lend Book">
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

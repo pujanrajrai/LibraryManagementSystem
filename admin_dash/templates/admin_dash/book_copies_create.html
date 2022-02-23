@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Book Copies{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+        <div class="d-sm-flex  mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Add Book Copies</h1>
+        </div>
+
+        <div class="row mb-3 ">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-5 col-md-6 mb-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Create Book" class="btn btn-info">
+                </form>
+            </div>
+
+
+        </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book{% endblock %}
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Books</h1>
+        <h1 class="h3 mb-0 text-gray-800"><a class="btn btn-outline-primary"
+                                             href="{% url 'admin_dash:book_copies_create' book_id %}">Add Book</a></h1>
+    </div>
+    <div class="row">
+
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>SN</th>
+                            <th>Book</th>
+                            <th>RFID</th>
+                            <th>ISBN</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for copy in copies %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ copy.book }}</td>
+                                <td>{{ copy.rfid }}</td>
+                                <td>{{ copy.isbn }}</td>
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

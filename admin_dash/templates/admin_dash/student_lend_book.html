@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Lend Book{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="d-sm-flex  mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Lend Book</h1>
+    </div>
+
+    <div class="row mb-3 ">
+
+
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-5 col-md-6 mb-4">
+        <h4>User Details</h4>
+                Photo:<br>
+                        <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+                        Name: {{ profile.full_name }}<br>
+                        Email: {{ profile.user.email }}<br>
+                        Name : {{ profile.full_name }}<br>
+                        Address : {{ profile.address }}<br>
+                        Date of birth : {{ profile.dob }}<br>
+                        Date of birth : {{ profile.gender }}<br>
+                        RFID : {{ profile.rf_id }}<br>
+            {% if errors %}
+                <ul class="errorlist">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+        </div>
+    <div class="col-xl-5 col-md-6 mb-4">
+            <form method="post" action="{% url 'admin_dash:user_book' %}">
+                {% csrf_token %}
+                <input type="hidden" name="rfid" value="{{ profile.rf_id }}">
+                Enter User Book RFID or IBNS <input type="text" class="form-control" value="{{ book_id }}" name="book_id"><br>
+                <input type="submit" value="Submit" class="btn btn-info">
+            </form>
+        </div>
+    </div>
+{% endblock %}

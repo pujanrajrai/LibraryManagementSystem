@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}USERS{% endblock %}
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+        <h1 class="h3 mb-0 text-gray-800"><a class="btn btn-outline-primary"
+                                             href="{% url 'admin_dash:add_users' %}">Add Users</a></h1>
+    </div>
+    <div class="row">
+
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>SN</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Email Verified</th>
+                            <th>User Verified</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.email }}</td>
+                                {% if user.is_staff_member %}
+                                    <td>Staff</td>
+                                {% else %}
+                                    <td>Student</td>
+                                {% endif %}
+                                <td>
+                                    {% if user.is_email_verified %}
+                                        Verified
+                                    {% else %}
+                                        <a href="{% url 'admin_dash:verify_email' user.email %}">Verify Email</a>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if user.is_user_verified %}
+                                        Verified
+                                    {% else %}
+                                        <a href="{% url 'admin_dash:verify_user' user.email %}">Verify Users</a>
+                                    {% endif %}
+                                </td>
+                                <td><a href="{% url 'admin_dash:update_user' user.pk %}">Update</a></td>
+                                <td><a href="{% url 'admin_dash:profile_list_view' user.pk %}">View Profile</a></td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

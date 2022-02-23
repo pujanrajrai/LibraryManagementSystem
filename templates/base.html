@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link href="img/logo/logo.png" rel="icon"> -->
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'dashboard/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'dashboard/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    {% block linkcss %}{% endblock %}
+    {% block style %}{% endblock %}
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <div class="sidebar-brand-icon">
+                <!-- <img src="img/logo/logo2.png"> -->
+            </div>
+            <div class="sidebar-brand-text mx-3">LMS</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        {% if request.user.is_admin %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:home' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:user_list_view' %}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Users</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:book_list' %}">
+                    <i class="fas fa-fw fa-book-reader"></i>
+                    <span>Book List</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:student' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Book Lend</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:book_history' %}">
+                    <i class="fas fa-fw fa-book-reader"></i>
+                    <span>Book Lend History</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:request_book_view' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Book Request</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_dash:return_book' %}">
+                    <i class="fas fa-fw fa-book-dead"></i>
+                    <span>Book Return</span></a>
+            </li>
+
+
+
+
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                    <i class="fas fa-fw fa-door-open"></i>
+                    <span>Logout</span></a>
+            </li>
+        {% else %}
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user_dash:profile_list_view' %}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Profile</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user_dash:book_list' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Book</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user_dash:book_list_history' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>My Book Lend History</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user_dash:request_book_list_view' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>My Request History</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:password_change' %}">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Change Password</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                    <i class="fas fa-fw fa-door-open"></i>
+                    <span>Logout</span></a>
+            </li>
+
+        {% endif %}
+
+
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <!-- TopBar -->
+            <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+                <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="navbar-nav ml-auto">
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <img class="img-profile rounded-circle" src="{% static 'dashboard/img/boy.png' %}"
+                                 style="max-width: 60px">
+                            <span class="ml-2 d-none d-lg-inline text-white small">{{ request.user }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
+                               data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Topbar -->
+            <!-- Container Fluid-->
+            <div class="container-fluid" id="container-wrapper">
+
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- DataTable with Hover -->
+                    <div class="col-lg-12">
+                        {% block body %}{% endblock %}
+
+                    </div>
+                </div>
+                <!--Row-->
+
+            </div>
+            <!---Container Fluid-->
+        </div>
+
+    </div>
+</div>
+
+<!-- Scroll to top -->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<script src="{% static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'dashboard/js/main.js' %}"></script>
+<!-- Page level plugins -->
+<script src="{% static 'dashboard/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'dashboard/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable(); // ID From dataTable
+        $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+    });
+</script>
+{% block js %}
+{% endblock %}
+</body>
+
+</html>

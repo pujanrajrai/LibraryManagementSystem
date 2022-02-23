@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== CSS Stylesheet ===== -->
+
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{% static 'accounts/assets/css/styles.css' %}">
+
+    <!-- ===== BOX ICONS ===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>LMS - LOGIN | REGISTER</title>
+</head>
+
+<body>
+<div class="login">
+    <div class="login-content">
+
+        <div class="login-img">
+            <img src="{% static 'accounts/assets/img/img-login.svg' %}" alt="">
+        </div>
+
+        <div class="login-forms">
+
+            <form method="post" class="login-register" id="login-in">
+                {% csrf_token %}
+                <h1 class="login-title"><b>SIGN <span>UP</span></b></h1>
+                {% if errors %}
+                    <h3 class="error" style="color: red;"><b>{{ errors }}</b></h3>
+                {% endif %}
+
+                <div class="login-box">
+                    <i class='bx bx-envelope login-icon'></i>
+                    <input type="text" name="email" value="{{ email }}" placeholder="Email" maxlength="255" class="login-input" required>
+                </div>
+
+                <div class="login-box">
+                    <i class='bx bx-lock-alt login-icon'></i>
+                    <input type="password" class="login-input" placeholder="Enter Your Password" name="password"
+                           maxlength="128" required>
+                </div>
+
+                <div class="login-box">
+                    <i class='bx bx-lock-alt login-icon'></i>
+
+                    <input type="password" name="password2" placeholder="Conform Password" class="login-input"
+                           maxlength="128" minlength="8" required id="id_password2">
+
+                </div>
+
+                <input value="Sign Up" type="submit" href="" class="login-button"
+                       style="border: none;display: inline-block">
+
+                <div>
+                    <span class="login-account">Already have an Account ?</span>
+                    <a href="{% url 'accounts:login' %}" class="login-signup" id="sign-in">Sign In Now</a>
+                </div>
+
+{#                <div class="login-social">#}
+{#                    <a href="#" class="login-social-icon" title="Login With Gmail"><i class='bx bxl-google'></i></a>#}
+{#                </div>#}
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<!--===== Custom JavaScript =====-->
+<script src="{% static 'accounts/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

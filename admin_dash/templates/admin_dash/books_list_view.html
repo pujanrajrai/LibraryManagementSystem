@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book{% endblock %}
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Books</h1>
+        <h1 class="h3 mb-0 text-gray-800"><a class="btn btn-outline-primary"
+                                             href="{% url 'admin_dash:book_create' %}">Add Book</a></h1>
+    </div>
+    <div class="row">
+
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>SN</th>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Categories</th>
+                            <th>Publication</th>
+                            <th>Published Date</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.category.name }}</td>
+                                <td>{{ book.publication_name }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td><a href="{% url 'admin_dash:book_update' book.pk %}">Update</a></td>
+                                <td><a href="{% url 'admin_dash:book_copies_list' book.pk %}">View Copies</a></td>
+{#                                <td><a href="{% url 'admin_dash:book_copies_create' book.pk %}">Add Copies</a></td>#}
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}USERS{% endblock %}
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+                <h1 class="h3 mb-0 text-gray-800"><a class="btn btn-outline-primary"
+                                                     href="{% url 'admin_dash:add_users' %}">Add Users</a></h1>
+    </div>
+    <div class="row">
+
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Profile Pic</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>RFID</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for profile in profiles %}
+                            <tr>
+                                <td><img src="{{ profile.profile_image.url }}" height="100" width="100"></td>
+                                <td>{{ profile.full_name }}</td>
+                                <td>{{ profile.user.email }}</td>
+
+                                <td>{{ profile.address }}</td>
+
+                                <td>{{ profile.dob }}</td>
+
+                                <td>{{ profile.gender }}</td>
+
+                                <td>{{ profile.rf_id }}</td>
+                                <td><a href="{% url 'admin_dash:profile_update' profile.pk %}">Update</a></td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

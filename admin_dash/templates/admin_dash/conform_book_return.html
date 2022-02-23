@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Return Book Conform{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="d-sm-flex  mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Return Book Conform</h1>
+    </div>
+
+    <div class="row mb-3 ">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-5 col-md-6 mb-4">
+            {% if errors %}
+                <ul class="errorlist">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+        <form method="post" action="{% url 'admin_dash:return_book_conform' %}">
+        {% csrf_token %}
+            {% for b in book %}
+                User Email: {{ b.user.email }}<br>
+                Book Name:{{ b.book.book.title }}<br>
+                Author: {{ b.book.book.author }}<br>
+                Taken Date: {{ b.date_of_issue }}<br>
+                Fine: {{ fine }}
+                <input type="hidden" name="book_id" value="{{ b.book.isbn }}"><br><br><br>
+                <input type="submit" class="btn btn-secondary">
+
+            {% endfor %}
+        </form>
+        </div>
+    </div>
+{% endblock %}

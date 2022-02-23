@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Lend Book{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="d-sm-flex  mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Lend Book</h1>
+    </div>
+
+    <div class="row mb-3 ">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-5 col-md-6 mb-4">
+            {% if errors %}
+                <ul class="errorlist">
+                    {{ errors }}
+                </ul>
+            {% endif %}
+            {% if messages %}
+                    {% for message in messages %}
+                        <div{% if message.tags == 'error' %} class="alert alert-danger" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+                    {% endfor %}
+            {% endif %}
+            <form method="post" action="{% url 'admin_dash:book' %}">
+                {% csrf_token %}
+                Enter User RFID <input type="text" class="form-control" value="{{ rfid }}" name="rfid" onblur="this.focus()" autofocus><br>
+                <input type="submit" value="Submit" class="btn btn-info">
+            </form>
+        </div>
+    </div>
+{% endblock %}
