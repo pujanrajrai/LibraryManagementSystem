@@ -20,6 +20,7 @@
                             <th>SN</th>
                             <th>Book</th>
                             <th>Author</th>
+                            <th>Fine</th>
                             <th>Date Of Issue</th>
                             <th>Date Of return</th>
                             <th>Is return</th>
@@ -33,11 +34,10 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ book.book.book.title }}</td>
                                 <td>{{ book.book.book.author }}</td>
+                                <td>{{ book.fine }}</td>
                                 <td>{{ book.date_of_issue }}</td>
                                 <td>{{ book.date_of_return }}</td>
                                 <td>{{ book.is_return }}</td>
-
-
 
                             </tr>
                         {% endfor %}

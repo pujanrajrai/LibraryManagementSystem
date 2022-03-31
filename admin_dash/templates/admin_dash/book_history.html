@@ -21,6 +21,7 @@
                             <th>Book</th>
                             <th>User Taken By</th>
                             <th>Author</th>
+                            <th>Fine</th>
                             <th>Date Of Issue</th>
                             <th>Date Of return</th>
                             <th>Is return</th>
@@ -35,12 +36,10 @@
                                 <td>{{ book.book.book.title }}</td>
                                 <td>{{ book.user.email }}</td>
                                 <td>{{ book.book.book.author }}</td>
+                                <td>{{ book.fine }}</td>
                                 <td>{{ book.date_of_issue }}</td>
                                 <td>{{ book.date_of_return }}</td>
                                 <td>{{ book.is_return }}</td>
-
-
-
                             </tr>
                         {% endfor %}
                         </tbody>

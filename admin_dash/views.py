@@ -8,18 +8,27 @@ from profiles.models import Profiles
 from .forms import UsersForms, ProfileCreateForm, BookForm, BookCopiesForm, ProfileUpdate
 from books.models import Book, BookCopies, LendBook
 from datetime import date
-
 from user_dash.models import RequestBook
 from decorator import is_admin
-
 from django.core.mail import send_mail
 from LibraryManagementSystem.settings import EMAIL_HOST_USER
+
+
 # from
 
 # Create your views here.
 @is_admin()
 def home(request):
-    return render(request, 'admin_dash/admin.html')
+    context = {
+        'users': MyUser.objects.all().count(),
+        'total_book': Book.objects.all().count(),
+        'book_request': RequestBook.objects.all().count(),
+        'book_lend': LendBook.objects.all().count(),
+        'book_copies': BookCopies.objects.all().count(),
+        'book_return': LendBook.objects.all().filter(is_return=True).count(),
+    }
+
+    return render(request, 'admin_dash/admin.html', context)
 
 
 @method_decorator(is_admin(), name='dispatch')
@@ -357,4 +366,10 @@ class MyBookLendHistory(ListView):
     context_object_name = 'books'
 
     def get_queryset(self):
-        return LendBook.objects.all().order_by('is_return')
+        books = LendBook.objects.all().order_by('is_return')
+        for book in books:
+            if not book.is_return:
+                diff_days = (((date.today() - book.date_of_issue)).days)
+                if diff_days > 5:
+                    book.fine = (diff_days - 5) * 5
+        return books

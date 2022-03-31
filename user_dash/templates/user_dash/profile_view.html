@@ -21,9 +21,8 @@
                         Address : {{ profile.address }}<br>
                         Phone Number : {{ profile.phone_number }}<br>
                         Date of birth : {{ profile.dob }}<br>
-                        Date of birth : {{ profile.gender }}<br>
-                        RFID : {{ profile.rf_id }}<br>
-                        <a href="{% url 'user_dash:profile_update' %}">Update Profile</a>
+                        RFID : {{ profile.rf_id }}<br><br>
+                        <a href="{% url 'user_dash:profile_update' %}" class="btn btn-success">Update Profile</a><br>
                     {% endfor %}
                 </div>
             </div>

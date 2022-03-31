@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.db.models import Sum, Case, When
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -30,7 +30,14 @@ class MyBookLendHistory(ListView):
     context_object_name = 'books'
 
     def get_queryset(self):
-        return LendBook.objects.filter(user=self.request.user)
+        books = LendBook.objects.filter(user=self.request.user)
+        for book in books:
+            if not book.is_return:
+                diff_days = (((date.today() - book.date_of_issue)).days)
+                if diff_days > 5:
+                    book.fine = (diff_days - 5) * 5
+
+        return books
 
 
 @method_decorator(is_user(), name='dispatch')
@@ -69,7 +76,6 @@ def request_book(request, pk):
         else:
             messages.error(request, 'cannot request book more than 3 in one day')
             return redirect('user_dash:book_list')
-
 
 
 @method_decorator(login_required(), name='dispatch')

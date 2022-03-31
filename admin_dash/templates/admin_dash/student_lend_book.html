@@ -36,7 +36,7 @@
             <form method="post" action="{% url 'admin_dash:user_book' %}">
                 {% csrf_token %}
                 <input type="hidden" name="rfid" value="{{ profile.rf_id }}">
-                Enter User Book RFID or IBNS <input type="text" class="form-control" value="{{ book_id }}" name="book_id"><br>
+                Enter User Book RFID or IBNS <input type="text" class="form-control" onblur="this.focus()" autofocus value="{{ book_id }}" name="book_id"><br>
                 <input type="submit" value="Submit" class="btn btn-info">
             </form>
         </div>
