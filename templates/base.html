@@ -2,210 +2,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- <link href="img/logo/logo.png" rel="icon"> -->
+    <!-- Meta -->
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <!-- Document title -->
     <title>{% block title %}{% endblock %}</title>
-    <link href="{% static 'dashboard/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'dashboard/css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'dashboard/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <meta name="description" content="LMS - Library Management System"/>
+    <meta name="author" content="LMS"/>
+    <meta name="robots" content="noindex, nofollow"/>
+
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+          href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400"/>
+
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'dashboard/assets/js/datatables/jquery.dataTables.min.css' %}"/>
+
+    <!-- CSS stylesheets -->
+    <link rel="stylesheet" id="css-font-awesome" href="{% static 'dashboard/assets/css/font-awesome.css' %}"/>
+    <link rel="stylesheet" id="css-ionicons" href="{% static 'dashboard/assets/css/ionicons.css' %}"/>
+    <link rel="stylesheet" id="css-bootstrap" href="{% static 'dashboard/assets/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" id="css-app" href="{% static 'dashboard/assets/css/app.css' %}"/>
+    <!-- End Stylesheets -->
     {% block linkcss %}{% endblock %}
     {% block style %}{% endblock %}
 </head>
 
 <body id="page-top">
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-            <div class="sidebar-brand-icon">
-                <!-- <img src="img/logo/logo2.png"> -->
+<body class="app-ui layout-has-drawer layout-has-fixed-header">
+<div class="app-layout-canvas">
+    <div class="app-layout-container">
+
+        <!-- Drawer -->
+        <aside class="app-layout-drawer">
+
+            <!-- Drawer scroll area -->
+            <div class="app-layout-drawer-scroll">
+                <!-- Drawer logo -->
+                <div id="logo" class="drawer-header">
+                    <a href="/">
+                        <h5 class="text-center" style="color: black;">Library Management System</h5>
+                    </a>
+                </div>
+
+                <!-- Drawer navigation -->
+                <nav class="drawer-main">
+                    <ul class="nav nav-drawer">
+
+
+                        {% if request.user.is_admin %}
+                            <li class="nav-item nav-drawer-header">Home</li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:home' %}">
+                                    <i class="ion-speedometer fa-4x"></i>
+                                    <span>Dashboard</span></a>
+                            </li>
+
+                            <li class="nav-item nav-drawer-header">Menu</li>
+
+                            <hr class="sidebar-divider">
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:user_list_view' %}">
+                                    <i class="ion-person fa-4x"></i>
+                                    <span>Users</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:book_list' %}">
+                                    <i class="ion-ios-book"></i>
+                                    <span>Book List</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:student' %}">
+                                    <i class="ion-ios-book-outline"></i>
+                                    <span>Book Lend</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:book_history' %}">
+                                    <i class="ion-ios-copy"></i>
+                                    <span>Book Lend History</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:request_book_view' %}">
+                                    <i class="ion-pull-request"></i>
+                                    <span>Book Request</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin_dash:return_book' %}">
+                                    <i class="ion-android-hand"></i>
+                                    <span>Book Return</span></a>
+                            </li>
+
+
+
+
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                                    <i class="ion-locked"></i>
+                                    <span>Logout</span></a>
+                            </li>
+                        {% else %}
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'user_dash:profile_list_view' %}">
+                                    <i class="ion-person"></i>
+                                    <span>Profile</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'user_dash:book_list' %}">
+                                    <i class="ion-ios-book-outline"></i>
+                                    <span>Book</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'user_dash:book_list_history' %}">
+                                    <i class="ion-pull-request"></i>
+                                    <span>My Book Lend History</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'user_dash:request_book_list_view' %}">
+                                    <i class="ion-ios-pulse"></i>
+                                    <span>My Request History</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'accounts:password_change' %}">
+                                    <i class="ion-lock-combination"></i>
+                                    <span>Change Password</span></a>
+                            </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'accounts:logout' %}">
+                                    <i class="ion-locked"></i>
+                                    <span>Logout</span></a>
+                            </li>
+
+                        {% endif %}
+                    </ul>
+                </nav>
+                <!-- End drawer navigation -->
+
             </div>
-            <div class="sidebar-brand-text mx-3">LMS</div>
-        </a>
-        <hr class="sidebar-divider my-0">
-        {% if request.user.is_admin %}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:home' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <hr class="sidebar-divider">
+            <!-- End drawer scroll area -->
+        </aside>
+        <!-- End drawer -->
 
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:user_list_view' %}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Users</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:book_list' %}">
-                    <i class="fas fa-fw fa-book-reader"></i>
-                    <span>Book List</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:student' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Book Lend</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:book_history' %}">
-                    <i class="fas fa-fw fa-book-reader"></i>
-                    <span>Book Lend History</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:request_book_view' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Book Request</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'admin_dash:return_book' %}">
-                    <i class="fas fa-fw fa-book-dead"></i>
-                    <span>Book Return</span></a>
-            </li>
-
-
-
-
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'accounts:logout' %}">
-                    <i class="fas fa-fw fa-door-open"></i>
-                    <span>Logout</span></a>
-            </li>
-        {% else %}
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'user_dash:profile_list_view' %}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Profile</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'user_dash:book_list' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Book</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'user_dash:book_list_history' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>My Book Lend History</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'user_dash:request_book_list_view' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>My Request History</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'accounts:password_change' %}">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Change Password</span></a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'accounts:logout' %}">
-                    <i class="fas fa-fw fa-door-open"></i>
-                    <span>Logout</span></a>
-            </li>
-
-        {% endif %}
-
-
-    </ul>
-    <!-- Sidebar -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <!-- TopBar -->
-            <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
-                <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <ul class="navbar-nav ml-auto">
-
-                    <div class="topbar-divider d-none d-sm-block"></div>
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="img-profile rounded-circle" src="{% static 'dashboard/img/boy.png' %}"
-                                 style="max-width: 60px">
-                            <span class="ml-2 d-none d-lg-inline text-white small">{{ request.user }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
-                               data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Topbar -->
-            <!-- Container Fluid-->
-            <div class="container-fluid" id="container-wrapper">
-
-                <!-- Row -->
-                <div class="row">
-
-                    <!-- DataTable with Hover -->
-                    <div class="col-lg-12">
-                        {% block body %}{% endblock %}
+        <!-- Header -->
+        <header class="app-layout-header">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#header-navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <button class="pull-left hidden-lg hidden-md navbar-toggle" type="button"
+                                data-toggle="layout" data-action="sidebar_toggle">
+                            <span class="sr-only">Toggle drawer</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
 
                     </div>
+
+                    <div class="collapse navbar-collapse" id="header-navbar-collapse">
+
+                        <!-- .navbar-left -->
+
+                        <ul class="nav navbar-nav navbar-right navbar-toolbar">
+
+                            <li class="dropdown dropdown-profile">
+                                <a href="javascript:void(0)" data-toggle="dropdown">
+                                    <span class="">{{ request.user }}<span class="caret"></span></span>
+
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+
+                                    <li>
+                                        <a href="{% url 'accounts:logout' %}">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- .navbar-right -->
+                    </div>
                 </div>
-                <!--Row-->
+                <!-- .container-fluid -->
+            </nav>
+            <!-- .navbar-default -->
+        </header>
+        <!-- End header -->
+
+        <main class="app-layout-content">
+
+            <!-- Page Content -->
+            <div class="container-fluid">
+                <!-- Dynamic Table Full -->
+                <div class="card">
+{#                    <div class="card-header">#}
+                        <!-- <h4>Heading</h4> -->
+{#                    </div>#}
+                    <div class="card-block">
+                        {% block body %}
+                        {% endblock %}
+
+                    </div>
+                    <!-- .card-block -->
+                </div>
+                <!-- .card -->
+                <!-- End Dynamic Table Full -->
 
             </div>
-            <!---Container Fluid-->
-        </div>
+            <!-- .container-fluid -->
+            <!-- End Page Content -->
+
+        </main>
 
     </div>
+    <!-- .app-layout-container -->
 </div>
+<!-- .app-layout-canvas -->
 
-<!-- Scroll to top -->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+<!-- Apps Modal -->
+<!-- Opens from the button in the header -->
+<div id="apps-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-sm modal-dialog modal-dialog-top">
+        <div class="modal-content">
+            <!-- Apps card -->
+            <div class="card m-b-0">
+                <div class="card-header bg-app bg-inverse">
+                    <h4>Apps</h4>
+                    <ul class="card-actions">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-block">
+                    <div class="row text-center">
+                        <div class="col-xs-6">
+                            <a class="card card-block m-b-0 bg-app-secondary bg-inverse" href="index.html">
+                                <i class="ion-speedometer fa-4x"></i>
+                                <p>Admin</p>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="card card-block m-b-0 bg-app-tertiary bg-inverse" href="frontend_home.html">
+                                <i class="ion-laptop fa-4x"></i>
+                                <p>Frontend</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- .card-block -->
+            </div>
+            <!-- End Apps card -->
+        </div>
+    </div>
+</div>
+<!-- End Apps Modal -->
 
-<script src="{% static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'dashboard/js/main.js' %}"></script>
-<!-- Page level plugins -->
-<script src="{% static 'dashboard/vendor/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'dashboard/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<div class="app-ui-mask-modal"></div>
+{#<div id="wrapper">#}
+{#    <!-- Sidebar -->#}
+{#    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">#}
+{#        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">#}
+{#            <div class="sidebar-brand-icon">#}
+{#                <!-- <img src="img/logo/logo2.png"> -->#}
+{#            </div>#}
+{#            <div class="sidebar-brand-text mx-3">LMS</div>#}
+{#        </a>#}
+{#        <hr class="sidebar-divider my-0">#}
+{#        {% if request.user.is_admin %}#}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:home' %}">#}
+{#                    <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                    <span>Dashboard</span></a>#}
+{#            </li>#}
+{#            <hr class="sidebar-divider">#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:user_list_view' %}">#}
+{#                    <i class="fas fa-fw fa-users"></i>#}
+{#                    <span>Users</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:book_list' %}">#}
+{#                    <i class="fas fa-fw fa-book-reader"></i>#}
+{#                    <span>Book List</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:student' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>Book Lend</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:book_history' %}">#}
+{#                    <i class="fas fa-fw fa-book-reader"></i>#}
+{#                    <span>Book Lend History</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:request_book_view' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>Book Request</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'admin_dash:return_book' %}">#}
+{#                    <i class="fas fa-fw fa-book-dead"></i>#}
+{#                    <span>Book Return</span></a>#}
+{#            </li>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'accounts:logout' %}">#}
+{#                    <i class="fas fa-fw fa-door-open"></i>#}
+{#                    <span>Logout</span></a>#}
+{#            </li>#}
+{#        {% else %}#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'user_dash:profile_list_view' %}">#}
+{#                    <i class="fas fa-fw fa-users"></i>#}
+{#                    <span>Profile</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'user_dash:book_list' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>Book</span></a>#}
+{#            </li>#}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'user_dash:book_list_history' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>My Book Lend History</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'user_dash:request_book_list_view' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>My Request History</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'accounts:password_change' %}">#}
+{#                    <i class="fas fa-fw fa-book-open"></i>#}
+{#                    <span>Change Password</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'accounts:logout' %}">#}
+{#                    <i class="fas fa-fw fa-door-open"></i>#}
+{#                    <span>Logout</span></a>#}
+{#            </li>#}
+{##}
+{#        {% endif %}#}
+{##}
+{##}
+{#    </ul>#}
+{#    <!-- Sidebar -->#}
+{#    <div id="content-wrapper" class="d-flex flex-column">#}
+{#        <div id="content">#}
+{#            <!-- TopBar -->#}
+{#            <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">#}
+{#                <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">#}
+{#                    <i class="fa fa-bars"></i>#}
+{#                </button>#}
+{#                <ul class="navbar-nav ml-auto">#}
+{##}
+{#                    <div class="topbar-divider d-none d-sm-block"></div>#}
+{#                    <li class="nav-item dropdown no-arrow">#}
+{#                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"#}
+{#                           data-toggle="dropdown"#}
+{#                           aria-haspopup="true" aria-expanded="false">#}
+{#                            <img class="img-profile rounded-circle" src="{% static 'dashboard/img/boy.png' %}"#}
+{#                                 style="max-width: 60px">#}
+{#                            <span class="ml-2 d-none d-lg-inline text-white small">{{ request.user }}</span>#}
+{#                        </a>#}
+{#                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"#}
+{#                             aria-labelledby="userDropdown">#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Profile#}
+{#                            </a>#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Settings#}
+{#                            </a>#}
+{#                            <a class="dropdown-item" href="#">#}
+{#                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Activity Log#}
+{#                            </a>#}
+{#                            <div class="dropdown-divider"></div>#}
+{#                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"#}
+{#                               data-target="#logoutModal">#}
+{#                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>#}
+{#                                Logout#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </nav>#}
+{#            <!-- Topbar -->#}
+{#            <!-- Container Fluid-->#}
+{#            <div class="container-fluid" id="container-wrapper">#}
+{##}
+{#                <!-- Row -->#}
+{#                <div class="row">#}
+{##}
+{#                    <!-- DataTable with Hover -->#}
+{#                    <div class="col-lg-12">#}
+{#                        {% block body %}{% endblock %}#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#                <!--Row-->#}
+{##}
+{#            </div>#}
+{#            <!---Container Fluid-->#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<!-- Scroll to top -->#}
+{#<a class="scroll-to-top rounded" href="#page-top">#}
+{#    <i class="fas fa-angle-up"></i>#}
+{#</a>#}
 
-<!-- Page level custom scripts -->
-<script>
-    $(document).ready(function () {
-        $('#dataTable').DataTable(); // ID From dataTable
-        $('#dataTableHover').DataTable(); // ID From dataTable with Hover
-    });
-</script>
+<!-- Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+<script src="{% static 'dashboard/assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'dashboard/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dashboard/assets/js/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'dashboard/assets/js/jquery.scrollLock.min.js' %}"></script>
+<script src="{% static 'dashboard/assets/js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'dashboard/assets/js/app.js' %}"></script>
+
+<!-- Page JS Plugins -->
+<script src="{% static 'dashboard/assets/js/datatables/jquery.dataTables.min.js' %}"></script>
+
+<!-- Page JS Code -->
+<script src="{% static 'dashboard/assets/js/datatables/base_tables_datatables.js' %}"></script>
 {% block js %}
 {% endblock %}
 </body>

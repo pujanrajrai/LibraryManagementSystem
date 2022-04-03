@@ -3,9 +3,8 @@
 {% block title %}USERS{% endblock %}
 {% block body %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
-        <h1 class="h3 mb-0 text-gray-800"><a class="btn btn-outline-primary"
-                                             href="{% url 'admin_dash:add_users' %}">Add Users</a></h1>
+        <h1 class="h3 mb-0 text-gray-800">Users <a class="btn btn-primary" style="float: right"
+                                                   href="{% url 'admin_dash:add_users' %}">Add Users</a></h1>
     </div>
     <div class="row">
 
@@ -15,7 +14,8 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 </div>
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+
                         <thead class="thead-light">
                         <tr>
                             <th>SN</th>
