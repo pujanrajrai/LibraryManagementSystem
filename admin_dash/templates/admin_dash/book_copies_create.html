@@ -13,9 +13,17 @@
         <div class="row mb-3 ">
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-5 col-md-6 mb-4">
+                {% if form.errors %}<div class="alert alert-danger">{{ form.errors }}</div>{% endif %}
                 <form method="post">
                     {% csrf_token %}
-                    {{ form.as_p }}
+{#                    {{ form.as_p }}#}
+                    Book Name:
+                    {{ form.book }}<br>
+                    Book Isbn:
+                    {{ form.isbn }}<br>
+                    Book RFID: (not required)
+                    <input type="text" name="rfid" class="form-control" maxlength="20" id="id_rfid"><br>
+
                     <input type="submit" value="Create Book" class="btn btn-info">
                 </form>
             </div>

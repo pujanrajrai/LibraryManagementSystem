@@ -53,7 +53,7 @@ class ProfileCreateForm(forms.ModelForm):
             'rf_id': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-    def __init__(self,user, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(ProfileCreateForm, self).__init__(*args, **kwargs)
         self.fields['gender'].empty_label = 'Select Gender'
         self.fields['user'].empty_label = None
@@ -105,12 +105,11 @@ class BookCopiesForm(forms.ModelForm):
         self.fields['book'].empty_label = None
         self.fields['book'].queryset = Book.objects.filter(pk=book_id)
 
-
     class Meta:
         model = BookCopies
         fields = ['book', 'isbn', 'rfid']
         widgets = {
             'book': forms.Select(attrs={'class': 'form-control'}),
             'isbn': forms.TextInput(attrs={'class': 'form-control'}),
-            'rfid': forms.TextInput(attrs={'class': 'form-control', 'required':''}),
+            'rfid': forms.TextInput(attrs={'class': 'form-control', 'required': 'false'}),
         }
