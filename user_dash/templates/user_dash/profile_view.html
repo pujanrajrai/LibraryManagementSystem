@@ -15,7 +15,11 @@
                 <div class="table-responsive p-3">
                     {% for profile in profiles %}
                         Image:<br>
-                        <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+                        {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+                        {% else %}
+                            No Profile Image<br>
+                        {% endif %}
                         Name: {{ profile.full_name }}<br>
                         Email: {{ profile.user.email }}<br>
                         Address : {{ profile.address }}<br>
