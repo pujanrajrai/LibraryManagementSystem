@@ -96,7 +96,7 @@ class CreateProfile(CreateView):
             return redirect('user_dash:profile_list_view')
         return super(CreateProfile, self).get(*args, **kwargs)
 
-
+# listing user profile
 @method_decorator(login_required(), name='dispatch')
 class ProfileListView(ListView):
     model = Profiles

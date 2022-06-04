@@ -25,6 +25,7 @@
                             <th>User Verified</th>
                             <th>Action</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
 
@@ -46,6 +47,8 @@
                                     {% endif %}
                                 </td>
 
+
+
                                 <td>
                                     {% if user.is_user_verified %}
                                         Verified
@@ -53,9 +56,15 @@
                                         <a href="{% url 'admin_dash:verify_user' user.email %}">Verify Users</a>
                                     {% endif %}
                                 </td>
+                            <td>
+                                    {% if not user.is_active %}
+                                        Blocked
+                                    {% else %}
+                                        <a href="{% url 'admin_dash:block_user' user.email %}">Block User</a>
+                                    {% endif %}
+                                </td>
                                 <td><a href="{% url 'admin_dash:update_user' user.pk %}">Update</a></td>
                                 <td><a href="{% url 'admin_dash:profile_list_view' user.pk %}">View Profile</a></td>
-
                             </tr>
                         {% endfor %}
                         </tbody>

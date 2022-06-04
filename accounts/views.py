@@ -12,7 +12,7 @@ from LibraryManagementSystem.settings import EMAIL_HOST_USER
 
 # Create your views here.
 
-
+# user register
 def register(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
@@ -49,7 +49,6 @@ def register(request):
             context['email'] = request.POST['email']
 
     return render(request, 'accounts/register.html', context)
-
 
 
 # sending email verification code
@@ -110,6 +109,7 @@ def verify_email(request):
     return render(request, 'accounts/verify_email.html')
 
 
+# user login
 def login(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
@@ -138,7 +138,7 @@ def login(request):
             return redirect('user_dash:book_list')
     return render(request, 'accounts/login.html')
 
-
+#password change
 @login_required()
 def password_change(request):
     context = {}
@@ -161,6 +161,7 @@ def password_change(request):
             context['errors'] = form.errors
     return render(request, 'accounts/change_password.html', context)
 
+#logout
 def logout(request):
     auth.logout(request)
     return redirect('/')

@@ -16,8 +16,10 @@
         <div class="col-xl-5 col-md-6 mb-4">
             <h4>User Details</h4>
 
+                {% if profile.profile_image %}
                 Photo:<br>
-                <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+                        <img src="{{ profile.profile_image.url }}" height="350" width="200"><br>
+        {% endif %}
                 Name: {{ profile.full_name }}<br>
                 Email: {{ profile.user.email }}<br>
                 Name : {{ profile.full_name }}<br>

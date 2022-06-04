@@ -10,6 +10,7 @@ urlpatterns = [
     path('view/users/', views.UserListView.as_view(), name='user_list_view'),
     # profile
     path('update/user/<str:pk>', views.UserUpdateView.as_view(), name='update_user'),
+    path('block/user/<str:email>', views.block_user, name='block_user'),
     path('verify/user/email/<str:email>', views.verify_email, name='verify_email'),
     path('verify/user/<str:email>', views.verify_user, name='verify_user'),
     path('profile/view/<str:pk>', views.ProfileListView.as_view(), name='profile_list_view'),
